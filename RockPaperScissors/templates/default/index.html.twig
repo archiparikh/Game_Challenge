@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Play Rock Paper Scissors</h1>
+                <form method="post" action="{{ path('rpsPost') }}">
+                    <input type="image" id="rock" data-value="rock" src="{{ asset('images/rps/icons/rock.png') }}" alt="Rock">&nbsp;
+                    <input type="image" id="paper" data-value="paper" src="{{ asset('images/rps/icons/paper.png') }}" alt="Paper">&nbsp;
+                    <input type="image" id="scissors" data-value="scissors" src="{{ asset('images/rps/icons/scissors.png') }}" alt="Scissors">
+                    <input type="hidden" name="rps_userinput" id="rps_userinput">
+                </form>
+            </div>
+
+            {{ match_results_template|default(null)|raw }}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js') }}"></script>
+    <script>
+        $("input[type='image']").on('click', function(event) {
+            event.preventDefault();
+            $('#rps_userinput').val($(this).data('value'));
+            this.form.submit();
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
+    h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 21px; margin-bottom: 1em; }
+    p { margin: 0 0 1em 0; }
+    a { color: #0000F0; }
+    a:hover { text-decoration: none; }
+    code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
+    #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
+    #container { padding: 2em; }
+    #welcome{ margin-bottom: 2em; text-align: center; }
+    #welcome h1 span { display: block; font-size: 75%; }
+
+    @media (min-width: 768px) {
+        #wrapper { width: 80%; margin: 2em auto; }
+        #status a, #next a { display: block; }
+
+        @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+    }
+</style>
+{% endblock %}

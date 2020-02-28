@@ -1,0 +1,7 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+rpsPost:
+    path: /post
+    controller: App\Controller\RPSController:post
